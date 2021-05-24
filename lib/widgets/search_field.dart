@@ -20,16 +20,17 @@ class SearchFieldWidget extends StatelessWidget {
         style: Styles.textFieldStyle,
         controller: controller,
         decoration: InputDecoration(
-            border: InputBorder.none,
-            hintText: 'Search',
-            hintStyle: Styles.textFieldStyle,
-            suffixIcon: InkWell(
-              onTap: () => controller.clear(),
-              child: Icon(
-                Icons.close,
-                color: Colors.white24,
-              ),
-            )),
+          border: InputBorder.none,
+          hintText: 'Search',
+          hintStyle: Styles.textFieldStyle,
+          suffixIcon: InkWell(
+            onTap: () => controller.clear(),
+            child: Icon(
+              Icons.close,
+              color: Colors.white24,
+            ),
+          ),
+        ),
       ),
     ));
   }

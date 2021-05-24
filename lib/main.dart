@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:plants_app/styles.dart';
 import 'package:plants_app/widgets/widgets.dart';
@@ -19,7 +20,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(
           primarySwatch: Colors.blue,
-          fontFamily: GoogleFonts.notoSans().fontFamily),
+          fontFamily: GoogleFonts.raleway().fontFamily),
       home: MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
@@ -39,33 +40,38 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     var totalHeight = MediaQuery.of(context).size.height;
     var totalWidth = MediaQuery.of(context).size.width;
+    double cardPosition = totalHeight - totalHeight * 0.59;
+    double teste = totalHeight - totalHeight * 0.91;
+    print(cardPosition);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         minimum: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-        child: Column(
-          children: [
-            Stack(
-              children: [
-                Shape1(totalWidth: totalWidth, totalHeight: totalHeight),
-                Shape2(
-                  totalWidth: totalWidth,
-                  totalHeight: totalHeight,
-                  top: 200,
-                  left: 300,
-                  angle: pi / 10,
-                  height: 300,
-                  color: Styles.wave2,
-                ),
-                Shape2(
-                  totalWidth: totalWidth,
-                  totalHeight: totalHeight,
-                  top: 300,
-                  left: totalWidth * 0.1,
-                  angle: pi / 10,
-                  height: 200,
-                  color: Styles.wave1,
-                ),
-                Container(
+        child: Container(
+          height: totalHeight,
+          // color: Colors.amber,
+          child: Stack(
+            children: [
+              // Shape1(totalWidth: totalWidth, totalHeight: totalHeight),
+              // Shape2(
+              //   totalWidth: totalWidth,
+              //   totalHeight: totalHeight,
+              //   top: 200,
+              //   left: 300,
+              //   angle: pi / 10,
+              //   height: 300,
+              //   color: Styles.wave2,
+              // ),
+              // Shape2(
+              //   totalWidth: totalWidth,
+              //   totalHeight: totalHeight,
+              //   top: 300,
+              //   left: totalWidth * 0.1,
+              //   angle: pi / 10,
+              //   height: 200,
+              //   color: Styles.wave1,
+              // ),
+              Container(
                   height: totalHeight * 0.45,
                   width: totalWidth,
                   decoration: BoxDecoration(
@@ -79,37 +85,64 @@ class _MyHomePageState extends State<MyHomePage> {
                       bottomLeft: Radius.circular(30),
                       bottomRight: Radius.circular(30),
                     ),
-                  ),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      MenuWidget(),
-                      TitleWidget(totalWidth: totalWidth),
-                      SearchFieldWidget(),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: Container(
-                margin: EdgeInsets.fromLTRB(12, 10, 0, 0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      CardWidget(
-                        totalWidth: totalWidth,
-                      ),
-                      CardWidget(
-                        totalWidth: totalWidth,
-                      ),
-                    ],
-                  ),
+                  )),
+
+              Container(
+                padding: EdgeInsets.only(top: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    MenuWidget(),
+                    Padding(
+                      padding: EdgeInsets.only(top: teste),
+                      child: TitleWidget(totalWidth: totalWidth),
+                    ),
+                    SearchFieldWidget(),
+                    Expanded(
+                        child: Padding(
+                      padding: const EdgeInsets.only(top: 12),
+                      child: ListView(children: [
+                        CardWidget(totalWidth: totalWidth),
+                        CardWidget(totalWidth: totalWidth),
+                        CardWidget(totalWidth: totalWidth),
+                        CardWidget(totalWidth: totalWidth),
+                      ]),
+                    )),
+                  ],
                 ),
               ),
-            )
-          ],
+
+              // Container(
+              //   padding: EdgeInsets.only(top: cardPosition, left: 20),
+              //   height: totalHeight,
+              //   // color: Colors.amber,
+              //   child: ListView(
+              //     children: [CardWidget(totalWidth: totalWidth)],
+              //   ),
+              // ),
+
+              // Positioned(
+              //   top: totalHeight - totalHeight * 0.6,
+              //   child: Container(
+              //     // height: totalHeight,
+              //     margin: EdgeInsets.fromLTRB(12, 10, 0, 0),
+              //     child: SingleChildScrollView(
+              //       child: Column(
+              //         children: [
+              //           CardWidget(
+              //             totalWidth: totalWidth,
+              //           ),
+              //           CardWidget(
+              //             totalWidth: totalWidth,
+              //           ),
+              //         ],
+              //       ),
+              //     ),
+              //   ),
+              // )
+            ],
+          ),
         ),
       ),
     );
@@ -126,16 +159,33 @@ class CardWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: totalWidth,
-      margin: EdgeInsets.symmetric(vertical: 15),
+      margin: EdgeInsets.only(left: 20, bottom: 20),
       // color: Colors.black12,
       decoration: BoxDecoration(
           color: Styles.cardBackgroundColor,
-          borderRadius: BorderRadius.circular(30)),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black38,
+              offset: Offset(0, 3),
+              blurRadius: 10,
+              spreadRadius: 0.3,
+            )
+          ],
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(10), bottomLeft: Radius.circular(30))),
       child: Column(
-        // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
-            padding: EdgeInsets.only(left: 20, top: 50),
+            alignment: Alignment.topLeft,
+            margin: EdgeInsets.only(top: 16, left: 20),
+            child: SvgPicture.asset(
+              'assets/heart.svg',
+              width: 30,
+              height: 30,
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.only(left: 20, top: 28),
             alignment: Alignment.centerLeft,
             child: Text(
               'Monstera',
@@ -151,6 +201,7 @@ class CardWidget extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                // Icon(Icons)
                 ClipRRect(
                   borderRadius: BorderRadius.circular(30),
                   child: Image.network(

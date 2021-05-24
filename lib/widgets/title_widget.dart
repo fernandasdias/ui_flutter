@@ -16,9 +16,9 @@ class TitleWidget extends StatelessWidget {
       margin: EdgeInsets.fromLTRB(0, 0, 0, 20),
       padding: EdgeInsets.fromLTRB(15, 0, 0, 20),
       // color: Colors.amberAccent,
-      width: totalWidth * 0.5,
+      // width: totalWidth * 0.5,
       child: Text(
-        'Flowers School',
+        'Flowers \nSchool',
         style: Styles.title,
       ),
     );
