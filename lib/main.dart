@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:flutter/material.dart';
@@ -103,15 +104,31 @@ class _MyHomePageState extends State<MyHomePage> {
                         child: Padding(
                       padding: const EdgeInsets.only(top: 12),
                       child: ListView(children: [
-                        CardWidget(totalWidth: totalWidth),
-                        CardWidget(totalWidth: totalWidth),
-                        CardWidget(totalWidth: totalWidth),
-                        CardWidget(totalWidth: totalWidth),
+                        CardWidget(
+                          totalWidth: totalWidth,
+                          image: 'assets/plant1.jpg',
+                        ),
+                        CardWidget(
+                          totalWidth: totalWidth,
+                          image: 'assets/plant2.jpg',
+                        ),
+                        CardWidget(
+                          totalWidth: totalWidth,
+                          image: 'assets/plants3.jpg',
+                        ),
+                        CardWidget(
+                          totalWidth: totalWidth,
+                          image: 'assets/plants4.jpg',
+                        ),
                       ]),
                     )),
                   ],
                 ),
               ),
+//Photo by <a href="https://unsplash.com/@yaanapi?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Yanapi Senaud</a> on <a href="https://unsplash.com/s/photos/coffee?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+//Photo by <a href="https://unsplash.com/@nate_dumlao?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Nathan Dumlao</a> on <a href="https://unsplash.com/s/photos/coffee?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+//Photo by <a href="https://unsplash.com/@ohmky2540?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Ohmky</a> on <a href="https://unsplash.com/s/photos/coffee?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+//Photo by <a href="https://unsplash.com/@mjsleeper?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Matthew Sleeper</a> on <a href="https://unsplash.com/s/photos/coffee?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
 
               // Container(
               //   padding: EdgeInsets.only(top: cardPosition, left: 20),
@@ -153,73 +170,105 @@ class CardWidget extends StatelessWidget {
   const CardWidget({
     Key? key,
     required this.totalWidth,
+    required this.image,
   }) : super(key: key);
   final double totalWidth;
+  final String image;
   @override
   Widget build(BuildContext context) {
     return Container(
       width: totalWidth,
-      margin: EdgeInsets.only(left: 20, bottom: 20),
-      // color: Colors.black12,
+      margin: EdgeInsets.only(left: 20, right: 20, bottom: 20),
       decoration: BoxDecoration(
+          image: DecorationImage(
+            alignment: Alignment.centerRight,
+            image: AssetImage(image),
+            fit: BoxFit.cover,
+          ),
+          // image: DecorationImage(image: FileImage(File(image))),
           color: Styles.cardBackgroundColor,
           boxShadow: [
             BoxShadow(
-              color: Colors.black38,
-              offset: Offset(0, 3),
-              blurRadius: 10,
-              spreadRadius: 0.3,
+              color: Colors.black26,
+              offset: Offset(-1, 1),
+              blurRadius: 4,
+              spreadRadius: 0,
             )
           ],
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10), bottomLeft: Radius.circular(30))),
-      child: Column(
+      child: Row(
         children: [
-          Container(
-            alignment: Alignment.topLeft,
-            margin: EdgeInsets.only(top: 16, left: 20),
-            child: SvgPicture.asset(
-              'assets/heart.svg',
-              width: 30,
-              height: 30,
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(left: 20, top: 28),
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Monstera',
-              style: Styles.cardTitleStyle,
-            ),
-          ),
-          Container(
-            margin: EdgeInsets.only(left: 20, top: 15, bottom: 15, right: 0),
-            alignment: Alignment.centerLeft,
-            // width: 60,
-            // decoration:
-            //     BoxDecoration(borderRadius: BorderRadius.circular(30)),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                // Icon(Icons)
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(30),
-                  child: Image.network(
-                    'https://avatars.githubusercontent.com/u/22924345?v=4',
-                    width: 60,
-                    height: 60,
+          Expanded(
+            flex: 3,
+            child: Container(
+              color: Colors.black26.withOpacity(0.3),
+              child: Column(
+                children: [
+                  Container(
+                    alignment: Alignment.topLeft,
+                    margin: EdgeInsets.only(top: 16, left: 20),
+                    child: SvgPicture.asset(
+                      'assets/heart.svg',
+                      width: 30,
+                      height: 30,
+                    ),
                   ),
+                  Container(
+                    padding: EdgeInsets.only(left: 20, top: 28),
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      'Monstera',
+                      style: Styles.cardTitleStyle,
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(
+                        left: 20, top: 15, bottom: 15, right: 0),
+                    alignment: Alignment.centerLeft,
+                    // width: 60,
+                    // decoration:
+                    //     BoxDecoration(borderRadius: BorderRadius.circular(30)),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Icon(Icons)
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(30),
+                          child: Image.network(
+                            'https://avatars.githubusercontent.com/u/22924345?v=4',
+                            width: 60,
+                            height: 60,
+                          ),
+                        ),
+                        Container(
+                          margin: EdgeInsets.symmetric(horizontal: 20),
+                          child: Text(
+                            'by Fernanda D. ',
+                            style: Styles.cardTextAuthorStyle,
+                          ),
+                        )
+                      ],
+                    ),
+                  )
+                ],
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Container(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                  alignment: Alignment.centerRight,
+                  image: AssetImage(image),
+                  fit: BoxFit.cover,
                 ),
-                Container(
-                  margin: EdgeInsets.symmetric(horizontal: 20),
-                  child: Text(
-                    'by Fernanda D. ',
-                    style: Styles.cardTextAuthorStyle,
-                  ),
-                )
-              ],
+              ),
+              // color: Colors.amber,
+              // child: Text('fernanda'),
             ),
-          )
+          ),
         ],
       ),
     );
